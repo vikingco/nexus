@@ -17,6 +17,7 @@ except ImportError:  # Django>=1.6
     from functools import update_wrapper
 
 from nexus import conf
+from nexus.compat import OrderedDict
 
 import mimetypes
 import os
@@ -24,11 +25,6 @@ import os.path
 import posixpath
 import stat
 import urllib
-
-try:
-    from collections import OrderedDict
-except ImportError:
-    from django.utils.datastructures import SortedDict as OrderedDict
 
 
 NEXUS_ROOT = os.path.normpath(os.path.dirname(__file__))
