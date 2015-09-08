@@ -15,7 +15,7 @@ setup(
     author_email='opensource@disqus.com',
     url='https://github.com/disqus/nexus',
     description='An extendable admin interface',
-    packages=find_packages(exclude=['example_module', 'example_project']),
+    packages=find_packages(exclude=['example_module']),
     zip_safe=False,
     install_requires=[],
     include_package_data=True,
