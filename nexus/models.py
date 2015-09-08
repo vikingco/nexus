@@ -1,13 +1,4 @@
-from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
+from nexus.checks import pre_checks_requirements
 
-# This is here so that it gets run at Django import time
-_reqs = ('django.contrib.auth', 'django.contrib.sessions')
-if getattr(settings, 'NEXUS_SKIP_INSTALLED_APPS_REQUIREMENTS', False):
-    _reqs = ()
-
-for r in _reqs:
-    if r not in settings.INSTALLED_APPS:
-        raise ImproperlyConfigured(
-            "Put '%s' in your INSTALLED_APPS setting in order to use the nexus application." % r
-        )
+# This is here so that it gets run at Django import time, on old versions of Django
+pre_checks_requirements()

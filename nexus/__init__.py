@@ -16,6 +16,8 @@ from nexus.modules import NexusModule
 
 __all__ = ('autodiscover', 'NexusSite', 'NexusModule', 'site')
 
+default_app_config = 'nexus.apps.NexusAppConfig'
+
 # A flag to tell us if autodiscover is running.  autodiscover will set this to
 # True while running, and False when it finishes.
 LOADING = False

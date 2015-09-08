@@ -9,3 +9,24 @@ try:
     from functools import update_wrapper  # noqa
 except ImportError:
     from django.utils.functional import update_wrapper  # noqa
+
+# Checks framework only exists on Django 1.7+
+try:
+    from django.core.checks import Error, Tags, register
+except ImportError:
+    class CheckMessage(object):
+        def __init__(self, level, msg, hint=None, obj=None, id=None):
+            self.level = level
+            self.msg = msg
+            self.hint = hint
+            self.obj = obj
+            self.id = id
+
+    class Error(CheckMessage):
+        def __init__(self, *args, **kwargs):
+            super(Error, self).__init__(40, *args, **kwargs)
+
+    Tags = object()
+
+    def register():
+        pass
