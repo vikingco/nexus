@@ -1,47 +1,71 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from __future__ import print_function
+
+import os
 import sys
-from os.path import dirname, abspath
+import subprocess
 
-from django.conf import settings
-
-if not settings.configured:
-    settings.configure(
-        DATABASE_ENGINE='sqlite3',
-        # HACK: this fixes our threaded runserver remote tests
-        # TEST_DATABASE_NAME='test_sentry',
-        INSTALLED_APPS=[
-            'django.contrib.auth',
-            'django.contrib.admin',
-            'django.contrib.sessions',
-            'django.contrib.sites',
-
-            # Included to fix Disqus' test Django which solves IntegrityMessage case
-            'django.contrib.contenttypes',
-            'nexus',
-        ],
-        ROOT_URLCONF='',
-        DEBUG=False,
-    )
+import pytest
 
 
-from django.test.simple import DjangoTestSuiteRunner
-test_runner = DjangoTestSuiteRunner(verbosity=2, interactive=True)
+def main():
+    try:
+        sys.argv.remove('--nolint')
+    except ValueError:
+        run_lint = True
+    else:
+        run_lint = False
+
+    try:
+        sys.argv.remove('--lintonly')
+    except ValueError:
+        run_tests = True
+    else:
+        run_tests = False
+
+    if run_tests:
+        exit_on_failure(tests_main())
+
+    if run_lint:
+        exit_on_failure(run_flake8())
+        exit_on_failure(run_isort())
+        exit_on_failure(run_setup_py_check())
 
 
-# from south.management.commands import patch_for_test_db_setup
-# patch_for_test_db_setup()
+def tests_main():
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
+    sys.path.insert(0, "tests")
+    return pytest.main()
 
-def runtests(*test_args):
-    if not test_args:
-        test_args = ['nexus']
 
-    parent = dirname(abspath(__file__))
-    sys.path.insert(0, parent)
+def run_flake8():
+    print('Running flake8 code linting')
+    ret = subprocess.call(['flake8', 'nexus', 'tests'])
+    print('flake8 failed' if ret else 'flake8 passed')
+    return ret
 
-    failures = test_runner.run_tests(test_args)
 
-    if failures:
-        sys.exit(failures)
+def run_isort():
+    print('Running isort check')
+    return subprocess.call([
+        'isort', '--recursive', '--check-only', '--diff',
+        'nexus', 'tests'
+    ])
+
+
+def run_setup_py_check():
+    print('Running setup.py check')
+    return subprocess.call([
+        'python', 'setup.py', 'check',
+        '-s', '--restructuredtext', '--metadata'
+    ])
+
+
+def exit_on_failure(ret, message=None):
+    if ret:
+        sys.exit(ret)
+
 
 if __name__ == '__main__':
-    runtests(*sys.argv[1:])
+    main()
