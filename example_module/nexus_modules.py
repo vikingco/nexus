@@ -1,5 +1,6 @@
 import nexus
 
+
 class HelloWorldModule(nexus.NexusModule):
     home_url = 'index'
     name = 'hello-world'
@@ -10,7 +11,8 @@ class HelloWorldModule(nexus.NexusModule):
     def get_urls(self):
         from django.conf.urls.defaults import patterns, url
 
-        urlpatterns = patterns('',
+        urlpatterns = patterns(
+            '',
             url(r'^$', self.as_view(self.index), name='index'),
         )
 
@@ -25,6 +27,7 @@ class HelloWorldModule(nexus.NexusModule):
         return self.render_to_response("nexus/example/index.html", {
             'title': 'Hello World',
         }, request)
+
 nexus.site.register(HelloWorldModule, 'hello-world')
 # optionally you may specify a category
 # nexus.site.register(HelloWorldModule, 'hello-world', category='cache')
