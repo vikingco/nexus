@@ -47,7 +47,6 @@ except ImportError:  # must be < Django 1.3
             get_token(request)
             return retval
 
-
     ensure_csrf_cookie = decorator_from_middleware(_EnsureCsrfCookie)
     ensure_csrf_cookie.__name__ = 'ensure_csrf_cookie'
     ensure_csrf_cookie.__doc__ = """
@@ -91,7 +90,8 @@ class NexusSite(object):
         except ImportError:  # Django<=1.4
             from django.conf.urls.defaults import patterns, url, include
 
-        base_urls = patterns('',
+        base_urls = patterns(
+            '',
             url(r'^media/(?P<module>[^/]+)/(?P<path>.+)$', self.media, name='media'),
 
             url(r'^$', self.as_view(self.dashboard), name='index'),
@@ -99,11 +99,13 @@ class NexusSite(object):
             url(r'^logout/$', self.as_view(self.logout), name='logout'),
         ), self.app_name, self.name
 
-        urlpatterns = patterns('',
+        urlpatterns = patterns(
+            '',
             url(r'^', include(base_urls)),
         )
         for namespace, module in self.get_modules():
-            urlpatterns += patterns('',
+            urlpatterns += patterns(
+                '',
                 url(r'^%s/' % namespace, include(module.urls)),
             )
 
@@ -185,9 +187,7 @@ class NexusSite(object):
 
         context.update(self.get_context(request))
 
-        return render_to_string(template, context,
-            context_instance=context_instance
-        )
+        return render_to_string(template, context, context_instance=context_instance)
 
     def render_to_response(self, template, context, request, current_app=None):
         "Shortcut for rendering to response and default context instances"
@@ -203,11 +203,9 @@ class NexusSite(object):
 
         context.update(self.get_context(request))
 
-        return render_to_response(template, context,
-            context_instance=context_instance
-        )
+        return render_to_response(template, context, context_instance=context_instance)
 
-    ## Our views
+    # Our views
 
     def media(self, request, module, path):
         """
@@ -302,4 +300,3 @@ class NexusSite(object):
 # setup the default site
 
 site = NexusSite()
-

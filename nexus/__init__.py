@@ -20,6 +20,7 @@ __all__ = ('autodiscover', 'NexusSite', 'NexusModule', 'site')
 # True while running, and False when it finishes.
 LOADING = False
 
+
 def autodiscover(site=None):
     """
     Auto-discover INSTALLED_APPS nexus.py modules and fail silently when

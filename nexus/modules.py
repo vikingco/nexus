@@ -124,7 +124,6 @@ class NexusModule(object):
 
     urls = property(urls)
 
-
     def get_trail(self, request):
         return [
             (self.get_title(), self.get_home_url(request)),
@@ -142,5 +141,3 @@ class NexusModule(object):
             home_url = None
 
         return home_url
-
-
