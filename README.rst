@@ -3,8 +3,6 @@ Nexus
 
 Nexus is a pluggable admin application in Django. It's designed to give you a simple design and architecture for building admin applications.
 
-(This project is still under active development)
-
 Screenshot
 ==========
 
@@ -13,35 +11,41 @@ Screenshot
 Install
 =======
 
-Install it with pip (or easy_install)::
+Install it with pip (or easy_install):
+
+.. code-block:: bash
 
 	pip install nexus
-	
+
 Config
 ======
 
 You'll need to enable it much like you would ``django.contrib.admin``.
 
-First, add it to your ``INSTALLED_APPS`` setting::
+First, add it to your ``INSTALLED_APPS`` setting:
 
-	INSTALLED_APPS = (
-	    ...
-	    'nexus',
-	)
+.. code-block:: python
 
-Now you'll want to include it within your ``urls.py``::
+    INSTALLED_APPS = (
+        ...
+        'nexus',
+    )
+
+Now you'll want to include it within your ``urls.py``:
+
+.. code-block:: python
 
 	import nexus
-	
+
 	# sets up the default nexus site by detecting all nexus_modules.py files
 	nexus.autodiscover()
-	
+
 	# urls.py
 	urlpatterns = patterns('',
 	    ('^nexus/', include(nexus.site.urls)),
 	)
 
-By default Nexus requires django.contrib.auth and django.contrib.sessions. If you are using a custom auth system you can skip these requirements by using the setting ``NEXUS_SKIP_INSTALLED_APPS_REQUIREMENTS = True`` in your django settings.
+By default Nexus requires ``django.contrib.auth`` and ``django.contrib.sessions``. If you are using a custom auth system you can skip these requirements by using the setting ``NEXUS_SKIP_INSTALLED_APPS_REQUIREMENTS = True`` in your django settings.
 
 Modules
 =======
@@ -56,4 +60,4 @@ Other applications which provide Nexus modules:
 * `django-debug-logging <https://github.com/lincolnloop/django-debug-logging>`_
 * `Django-Experiments <https://github.com/mixcloud/django-experiments>`_
 
-(docs on writing modules coming soon)
+If you want to write a module, look at the ``example_module`` folder for a hello world implementation. Also the source code shouldn't be too hard to understand.
