@@ -19,7 +19,6 @@ class ViewTests(TestCase):
     def test_dashboard_logged_in(self):
         resp = self.client.get('/nexus/')
         assert resp.status_code == 200
-        print resp.content
         assert "Model Admin" in resp.content
         assert 'csrftoken' in resp.cookies
 
