@@ -1,8 +1,6 @@
 # -*- coding:utf-8 -*-
 import os
 
-import django
-
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 DEBUG = True
@@ -20,6 +18,7 @@ DATABASES = {
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -28,18 +27,11 @@ INSTALLED_APPS = (
     'testapp'
 )
 
-if django.VERSION[:2] >= (1, 7):
-    INSTALLED_APPS = (
-        'django.contrib.admin.apps.AdminConfig',
-    ) + INSTALLED_APPS
-else:
-    INSTALLED_APPS = (
-        'django.contrib.admin',
-    ) + INSTALLED_APPS
-
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
