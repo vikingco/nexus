@@ -17,13 +17,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.static import was_modified_since
 
 from nexus import conf
-from nexus.compat import OrderedDict
-
-try:
-    from django.utils.functional import update_wrapper
-except ImportError:  # Django>=1.6
-    from functools import update_wrapper
-
+from nexus.compat import OrderedDict, update_wrapper
 
 NEXUS_ROOT = os.path.normpath(os.path.dirname(__file__))
 
