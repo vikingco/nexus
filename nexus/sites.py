@@ -1,8 +1,13 @@
 # Core site concept heavily inspired by django.contrib.sites
+import mimetypes
+import os
+import posixpath
+import stat
+import urllib
 
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotModified, Http404
+from django.http import Http404, HttpResponse, HttpResponseNotModified, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -11,20 +16,13 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.static import was_modified_since
 
+from nexus import conf
+from nexus.compat import OrderedDict
+
 try:
     from django.utils.functional import update_wrapper
 except ImportError:  # Django>=1.6
     from functools import update_wrapper
-
-from nexus import conf
-from nexus.compat import OrderedDict
-
-import mimetypes
-import os
-import os.path
-import posixpath
-import stat
-import urllib
 
 
 NEXUS_ROOT = os.path.normpath(os.path.dirname(__file__))

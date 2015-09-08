@@ -1,10 +1,10 @@
-from django.core.urlresolvers import reverse
-from django.http import HttpRequest
-
 import hashlib
 import inspect
 import logging
 import os
+
+from django.core.urlresolvers import reverse
+from django.http import HttpRequest
 
 # import thread lib from py3k or 2
 try:
