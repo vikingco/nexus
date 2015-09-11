@@ -1,3 +1,9 @@
+# Django <1.9 provides importlib for Python <2.6
+try:
+    from importlib import import_module  # noqa
+except ImportError:
+    from django.utils.importlib import import_module  # noqa
+
 # Django <1.9 provides SortedDict on older versions for Python < 2.6
 try:
     from collections import OrderedDict  # noqa

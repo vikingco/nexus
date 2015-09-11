@@ -10,7 +10,7 @@ except ImportError:
 
 setup(
     name='nexus',
-    version='0.3.1+yplan1',
+    version='0.3.1+yplan2',
     author='Disqus',
     author_email='opensource@disqus.com',
     url='https://github.com/disqus/nexus',
