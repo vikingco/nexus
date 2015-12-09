@@ -9,11 +9,13 @@ except ImportError:
 
 
 setup(
-    name='nexus',
-    version='0.3.1+yplan2',
+    name='nexus-yplan',
+    version='1.0.0',
     author='Disqus',
     author_email='opensource@disqus.com',
-    url='https://github.com/disqus/nexus',
+    maintainer='YPlan',
+    maintainer_email='adam@yplanapp.com',
+    url='https://github.com/yplan/nexus',
     description='An extendable admin interface',
     packages=find_packages(exclude=['example_module', 'tests']),
     zip_safe=False,
