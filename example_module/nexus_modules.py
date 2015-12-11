@@ -1,3 +1,5 @@
+from django.conf.urls.defaults import url
+
 import nexus
 
 
@@ -9,14 +11,9 @@ class HelloWorldModule(nexus.NexusModule):
         return 'Hello World'
 
     def get_urls(self):
-        from django.conf.urls.defaults import patterns, url
-
-        urlpatterns = patterns(
-            '',
+        return [
             url(r'^$', self.as_view(self.index), name='index'),
-        )
-
-        return urlpatterns
+        ]
 
     def render_on_dashboard(self, request):
         return self.render_to_string('nexus/example/dashboard.html', {

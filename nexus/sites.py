@@ -5,19 +5,16 @@ import posixpath
 import stat
 import urllib
 
-from django.core.context_processors import csrf
+from django.conf.urls import include, url
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse, HttpResponseNotModified, HttpResponseRedirect
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.template.loader import render_to_string
 from django.utils.http import http_date
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.static import was_modified_since
 
 from nexus import conf
-from nexus.compat import OrderedDict, update_wrapper
+from nexus.compat import OrderedDict, context_processors, render, render_to_string, update_wrapper
 
 NEXUS_ROOT = os.path.normpath(os.path.dirname(__file__))
 
@@ -77,29 +74,21 @@ class NexusSite(object):
             del self._registry[namespace]
 
     def get_urls(self):
-        try:
-            from django.conf.urls import patterns, url, include
-        except ImportError:  # Django<=1.4
-            from django.conf.urls.defaults import patterns, url, include
-
-        base_urls = patterns(
-            '',
+        base_urls = [
             url(r'^media/(?P<module>[^/]+)/(?P<path>.+)$', self.media, name='media'),
 
             url(r'^$', self.as_view(self.dashboard), name='index'),
             url(r'^login/$', self.login, name='login'),
             url(r'^logout/$', self.as_view(self.logout), name='logout'),
-        ), self.app_name, self.name
+        ], self.app_name, self.name
 
-        urlpatterns = patterns(
-            '',
+        urlpatterns = [
             url(r'^', include(base_urls)),
-        )
+        ]
         for namespace, module in self.get_modules():
-            urlpatterns += patterns(
-                '',
+            urlpatterns += [
                 url(r'^%s/' % namespace, include(module.urls)),
-            )
+            ]
 
         return urlpatterns
 
@@ -144,7 +133,7 @@ class NexusSite(object):
         return update_wrapper(inner, view)
 
     def get_context(self, request):
-        context = csrf(request)
+        context = context_processors.csrf(request)
         context.update({
             'request': request,
             'nexus_site': self,
@@ -173,13 +162,11 @@ class NexusSite(object):
             current_app = '%s:%s' % (self.name, current_app)
 
         if request:
-            context_instance = RequestContext(request, current_app=current_app)
-        else:
-            context_instance = None
+            request.current_app = current_app
 
         context.update(self.get_context(request))
 
-        return render_to_string(template, context, context_instance=context_instance)
+        return render_to_string(template, context=context, request=request)
 
     def render_to_response(self, template, context, request, current_app=None):
         "Shortcut for rendering to response and default context instances"
@@ -189,13 +176,11 @@ class NexusSite(object):
             current_app = '%s:%s' % (self.name, current_app)
 
         if request:
-            context_instance = RequestContext(request, current_app=current_app)
-        else:
-            context_instance = None
+            request.current_app = current_app
 
         context.update(self.get_context(request))
 
-        return render_to_response(template, context, context_instance=context_instance)
+        return render(request, template, context=context)
 
     # Our views
 

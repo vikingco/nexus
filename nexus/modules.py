@@ -110,12 +110,7 @@ class NexusModule(object):
         return self.get_title()
 
     def get_urls(self):
-        try:
-            from django.conf.urls import patterns
-        except ImportError:  # Django<=1.4
-            from django.conf.urls.defaults import patterns
-
-        return patterns('')
+        return []
 
     def urls(self):
         if self.app_name and self.name:
