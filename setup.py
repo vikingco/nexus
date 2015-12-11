@@ -2,6 +2,7 @@
 # -*- encoding:utf-8 -*-
 import os
 import re
+import sys
 
 from setuptools import setup, find_packages
 
@@ -16,6 +17,28 @@ def get_version(package):
 
 version = get_version('nexus')
 
+
+if sys.argv[-1] == 'publish':
+    if os.system("pip freeze | grep wheel"):
+        print("wheel not installed.\nUse `pip install wheel`.\nExiting.")
+        sys.exit()
+    if os.system("pip freeze | grep twine"):
+        print("twine not installed.\nUse `pip install twine`.\nExiting.")
+        sys.exit()
+    os.system("rm -rf .eggs/ build/ dist/")
+    os.system("python setup.py sdist bdist_wheel")
+    os.system("twine upload dist/*")
+    print("You probably want to also tag the version now:")
+    print("  git tag -a v%s -m 'Version %s'" % (version, version))
+    print("  git push --tags")
+    sys.exit()
+
+with open('README.rst') as readme_file:
+    readme = readme_file.read()
+
+with open('HISTORY.rst') as history_file:
+    history = history_file.read().replace('.. :changelog:', '')
+
 setup(
     name='nexus-yplan',
     version=version,
@@ -24,16 +47,26 @@ setup(
     maintainer='YPlan',
     maintainer_email='adam@yplanapp.com',
     url='https://github.com/yplan/nexus',
-    description='An extendable admin interface',
+    description=(
+        'Nexus is a pluggable admin application in Django. '
+        'It\'s designed to give you a simple design and architecture for building admin applications.'
+    ),
+    long_description=readme + '\n\n' + history,
     packages=find_packages(exclude=['example_module', 'tests']),
     zip_safe=False,
     install_requires=[],
     include_package_data=True,
     classifiers=[
+        "Programming Language :: Python :: 2",
+        'Development Status :: 5 - Production/Stable',
         'Framework :: Django',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
+        'License :: OSI Approved :: Apache Software License',
+        'Natural Language :: English',
         'Operating System :: OS Independent',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python',
         'Topic :: Software Development'
     ],
 )
