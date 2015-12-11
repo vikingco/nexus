@@ -7,5 +7,6 @@ admin.autodiscover()
 nexus.autodiscover()
 
 urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^nexus/', include(nexus.site.urls)),
 ]

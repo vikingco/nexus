@@ -12,54 +12,15 @@ class ViewTests(TestCase):
 
     def test_dashboard_not_logged_in(self):
         self.client.logout()
-        resp = self.client.get('/nexus/')
-        assert resp.status_code == 200
-        assert "You must log in to continue" in resp.content
+        resp = self.client.get('/nexus/', follow=False)
+        assert resp.status_code == 302
+        assert '/admin/login/' in resp['Location']
 
     def test_dashboard_logged_in(self):
         resp = self.client.get('/nexus/')
         assert resp.status_code == 200
         assert "Dashboard" in resp.content
         assert 'csrftoken' in resp.cookies
-
-    def test_login_not_logged_in(self):
-        self.client.logout()
-        resp = self.client.get('/nexus/login/')
-        assert resp.status_code == 200
-
-    def test_login_do_log_in(self):
-        self.client.logout()
-        resp = self.client.post('/nexus/login/', data={
-            'username': 'user',
-            'password': 'password',
-        }, follow=False)
-        assert resp.status_code == 302
-        assert resp['Location'].endswith('/nexus/')
-
-    def test_login_do_log_in_fail(self):
-        self.client.logout()
-        resp = self.client.post('/nexus/login/', data={
-            'username': 'user',
-            'password': 'notmypassword',
-        }, follow=False)
-        assert resp.status_code == 200
-        assert '<p class="error"' in resp.content
-
-    def test_login_logged_in(self):
-        resp = self.client.get('/nexus/login/', follow=False)
-        assert resp.status_code == 302
-        assert resp['Location'].endswith('/nexus/')
-
-    def test_logout_not_logged_in(self):
-        self.client.logout()
-        resp = self.client.get('/nexus/logout/')
-        assert resp.status_code == 200
-        assert "You must log in to continue" in resp.content
-
-    def test_logout_logged_in(self):
-        resp = self.client.get('/nexus/logout/', follow=False)
-        assert resp.status_code == 302
-        assert resp['Location'].endswith('/nexus/')
 
     def test_media_logo(self):
         resp = self.client.get('/nexus/media/nexus/img/nexus_logo.png')

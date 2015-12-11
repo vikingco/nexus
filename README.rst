@@ -69,6 +69,32 @@ By default Nexus requires ``django.contrib.auth`` and ``django.contrib.sessions`
 system you can skip these requirements by using the setting ``NEXUS_SKIP_INSTALLED_APPS_REQUIREMENTS = True`` in your
 django settings.
 
+Settings
+--------
+
+Nexus' behaviour can be customized by adding some values to your Django settings.
+
+Login
+~~~~~
+
+Until Version 1.1, Nexus included a login/logout functionality. Unfortunately these were copied and adapted from an old
+version of the code in Django Admin, and were thus not up to date with security changes in newer Django versions. Since
+keeping them up to date would be a burden, and most sites use Django Admin for adminstrator login, the login/logout
+functions have been removed.
+
+Nexus now relies on Django Admin login, or for users to visit it having logged in through another route.
+
+Media
+~~~~~
+
+By default Nexus serves its media files itself through Python, avoiding any configuration to integrate with your
+project. This is convenient but can be slow. You can control where the media files are served from with the setting
+``NEXUS_MEDIA_PREFIX``, for example::
+
+.. code-block:: python
+
+    NEXUS_MEDIA_PREFIX = '/served/here/'
+
 Modules
 -------
 

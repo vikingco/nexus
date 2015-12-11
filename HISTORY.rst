@@ -1,5 +1,6 @@
 .. :changelog:
 
+=======
 History
 =======
 
@@ -12,6 +13,9 @@ Pending Release
   the ``adminmedia`` template tag that the templates were still using. Because it seems that no one has been using it,
   it has been removed. Users are encourage to just use the normal Django Admin instead. Nexus thus ships with no
   modules included.
+* Removed the login/logout pages, which were copied and adapted from an old version of Django Admin, and likely no
+  longer secure. If you are not logged in Nexus will now redirect you to Django Admin - thus Django Admin is now
+  required by Nexus.
 
 1.0.0 (2015-12-09)
 ------------------

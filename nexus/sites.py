@@ -5,9 +5,10 @@ import posixpath
 import stat
 import urllib
 from collections import OrderedDict
-from functools import update_wrapper
+from functools import update_wrapper, wraps
 
 from django.conf.urls import include, url
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse, HttpResponseNotModified, HttpResponseRedirect
 from django.utils.http import http_date
@@ -55,8 +56,6 @@ class NexusSite(object):
             url(r'^media/(?P<module>[^/]+)/(?P<path>.+)$', self.media, name='media'),
 
             url(r'^$', self.as_view(self.dashboard), name='index'),
-            url(r'^login/$', self.login, name='login'),
-            url(r'^logout/$', self.as_view(self.logout), name='logout'),
         ], self.app_name, self.name
 
         urlpatterns = [
@@ -89,9 +88,10 @@ class NexusSite(object):
 
         extra_permission can be used to require an extra permission for this view, such as a module permission
         """
+        @wraps(view)
         def inner(request, *args, **kwargs):
             if not self.has_permission(request, extra_permission):
-                # show login pane
+                # Redirect to login
                 return self.login(request)
             return view(request, *args, **kwargs)
 
@@ -201,41 +201,18 @@ class NexusSite(object):
         response["Content-Length"] = len(contents)
         return response
 
+    @never_cache
     def login(self, request, form_class=None):
         "Login form"
-        from django.contrib.auth import login as login_
-        from django.contrib.auth.forms import AuthenticationForm
-
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('nexus:index', current_app=self.name))
 
-        if form_class is None:
-            form_class = AuthenticationForm
-
-        if request.POST:
-            form = form_class(request, request.POST)
-            if form.is_valid():
-                login_(request, form.get_user())
-                request.session.save()
-                return HttpResponseRedirect(request.POST.get('next') or reverse('nexus:index', current_app=self.name))
-            else:
-                request.session.set_test_cookie()
-        else:
-            form = form_class(request)
-            request.session.set_test_cookie()
-
-        return self.render_to_response('nexus/login.html', {
-            'form': form,
-        }, request)
-    login = never_cache(login)
-
-    def logout(self, request):
-        "Logs out user and redirects them to Nexus home"
-        from django.contrib.auth import logout
-
-        logout(request)
-
-        return HttpResponseRedirect(reverse('nexus:index', current_app=self.name))
+        return HttpResponseRedirect(
+            '{login}?{get}'.format(
+                login=reverse('admin:login'),
+                get=urllib.urlencode({REDIRECT_FIELD_NAME: request.path})
+            )
+        )
 
     def dashboard(self, request):
         "Basic dashboard panel"
