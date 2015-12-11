@@ -1,8 +1,7 @@
 import django
 from django.conf import settings
+from django.core.checks import Error, Tags, register
 from django.core.exceptions import ImproperlyConfigured
-
-from nexus.compat import Error, Tags, register
 
 
 def register_checks():

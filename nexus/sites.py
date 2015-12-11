@@ -4,6 +4,8 @@ import os
 import posixpath
 import stat
 import urllib
+from collections import OrderedDict
+from functools import update_wrapper
 
 from django.conf.urls import include, url
 from django.core.urlresolvers import reverse
@@ -14,7 +16,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.static import was_modified_since
 
 from nexus import conf
-from nexus.compat import OrderedDict, context_processors, render, render_to_string, update_wrapper
+from nexus.compat import context_processors, render, render_to_string
 
 NEXUS_ROOT = os.path.normpath(os.path.dirname(__file__))
 

@@ -1,8 +1,9 @@
+from collections import OrderedDict
+
 from django import template
 
 import nexus
 from nexus import conf
-from nexus.compat import OrderedDict
 from nexus.modules import NexusModule
 
 register = template.Library()

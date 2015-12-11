@@ -41,8 +41,9 @@ def autodiscover(site=None):
         globals()['site'] = locals()['site']
 
     import imp
+    from importlib import import_module
+
     from django.conf import settings
-    from nexus.compat import import_module
 
     for app in settings.INSTALLED_APPS:
         # For each app, we need to look for an api.py inside that app's
