@@ -14,7 +14,7 @@ register.simple_tag(nexus_media_prefix)
 
 
 def nexus_version():
-    return nexus.VERSION
+    return nexus.__version__
 register.simple_tag(nexus_version)
 
 

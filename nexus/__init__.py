@@ -2,18 +2,11 @@
 Nexus
 ~~~~~
 """
-
-try:
-    VERSION = __import__('pkg_resources') \
-        .get_distribution('nexus').version
-except Exception:
-    VERSION = 'unknown'
-
-# XXX: code based on django.contrib.admin auto discovery
-
 from nexus.sites import NexusSite, site
 from nexus.modules import NexusModule
 
+__version__ = '1.0.0'
+VERSION = __version__
 __all__ = ('autodiscover', 'NexusSite', 'NexusModule', 'site')
 
 default_app_config = 'nexus.apps.NexusAppConfig'
@@ -21,6 +14,8 @@ default_app_config = 'nexus.apps.NexusAppConfig'
 # A flag to tell us if autodiscover is running.  autodiscover will set this to
 # True while running, and False when it finishes.
 LOADING = False
+
+# XXX: code based on django.contrib.admin auto discovery
 
 
 def autodiscover(site=None):

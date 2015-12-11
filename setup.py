@@ -1,16 +1,24 @@
 #!/usr/bin/env python
+# -*- encoding:utf-8 -*-
+import os
+import re
 
-try:
-    from setuptools import setup, find_packages
-except ImportError:
-    from ez_setup import use_setuptools
-    use_setuptools()
-    from setuptools import setup, find_packages
+from setuptools import setup, find_packages
 
+
+def get_version(package):
+    """
+    Return package version as listed in `__version__` in `init.py`.
+    """
+    init_py = open(os.path.join(package, '__init__.py')).read()
+    return re.search("__version__ = ['\"]([^'\"]+)['\"]", init_py).group(1)
+
+
+version = get_version('nexus')
 
 setup(
     name='nexus-yplan',
-    version='1.0.0',
+    version=version,
     author='Disqus',
     author_email='opensource@disqus.com',
     maintainer='YPlan',
