@@ -52,7 +52,7 @@ setup(
         'It\'s designed to give you a simple design and architecture for building admin applications.'
     ),
     long_description=readme + '\n\n' + history,
-    packages=find_packages(exclude=['example_module', 'tests']),
+    packages=find_packages(exclude=['tests']),
     zip_safe=False,
     install_requires=[],
     include_package_data=True,

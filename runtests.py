@@ -44,7 +44,7 @@ def tests_main():
 
 def run_flake8():
     print('Running flake8 code linting')
-    ret = subprocess.call(['flake8', 'example_module', 'nexus', 'tests'])
+    ret = subprocess.call(['flake8', 'nexus', 'tests'])
     print('flake8 failed' if ret else 'flake8 passed')
     return ret
 
@@ -53,7 +53,7 @@ def run_isort():
     print('Running isort check')
     return subprocess.call([
         'isort', '--recursive', '--check-only', '--diff',
-        'example_module', 'nexus', 'tests'
+        'nexus', 'tests'
     ])
 
 

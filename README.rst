@@ -8,7 +8,8 @@ Nexus
 .. image:: https://travis-ci.org/YPlan/nexus.svg?branch=master
         :target: https://travis-ci.org/YPlan/nexus
 
-Nexus is a pluggable admin application in Django. It's designed to give you a simple design and architecture for building admin applications.
+Nexus is a pluggable admin application in Django. It's designed to give you a simple design and architecture for
+building admin applications.
 
 It was originally created by `Disqus <https://github.com/disqus/nexus>`_, but due to the inactivity we at YPlan have taken over maintenance on this fork.
 
@@ -64,14 +65,14 @@ Now you'll want to include it within your ``urls.py``:
 	    ('^nexus/', include(nexus.site.urls)),
 	)
 
-By default Nexus requires ``django.contrib.auth`` and ``django.contrib.sessions``. If you are using a custom auth system you can skip these requirements by using the setting ``NEXUS_SKIP_INSTALLED_APPS_REQUIREMENTS = True`` in your django settings.
+By default Nexus requires ``django.contrib.auth`` and ``django.contrib.sessions``. If you are using a custom auth
+system you can skip these requirements by using the setting ``NEXUS_SKIP_INSTALLED_APPS_REQUIREMENTS = True`` in your
+django settings.
 
 Modules
 -------
 
-Nexus by default includes a module that will automatically pick up ``django.contrib.admin``.
-
-Other applications which provide Nexus modules:
+Applications which provide Nexus modules:
 
 * `Gargoyle (YPlan fork) <https://github.com/YPlan/gargoyle>`_
 * `Memcache <https://github.com/dcramer/nexus-memcache>`_
@@ -81,4 +82,5 @@ Other applications which provide Nexus modules:
 
 N.B. Those that have not been forked by YPlan probably aren't up to date to work with newer Django versions.
 
-If you want to write a module, look at the ``example_module`` folder for a hello world implementation. Also the source code shouldn't be too hard to understand.
+If you want to write a module, see ``HelloWorldModule`` in ``tests/testapp/nexus_modules.py``, plus its templates, for
+a simple hello world implementation. Also the source code shouldn't be too hard to understand.

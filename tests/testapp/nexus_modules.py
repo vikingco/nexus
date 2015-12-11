@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import url
+from django.conf.urls import url
 
 import nexus
 
@@ -26,5 +26,6 @@ class HelloWorldModule(nexus.NexusModule):
         }, request)
 
 nexus.site.register(HelloWorldModule, 'hello-world')
+
 # optionally you may specify a category
 # nexus.site.register(HelloWorldModule, 'hello-world', category='cache')

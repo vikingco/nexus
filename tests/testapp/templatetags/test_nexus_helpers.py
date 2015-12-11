@@ -3,6 +3,7 @@ from django.template import Context, Template
 from django.test import SimpleTestCase
 
 import nexus
+from nexus.sites import site
 
 
 class NexusHelpersTests(SimpleTestCase):
@@ -25,5 +26,5 @@ class NexusHelpersTests(SimpleTestCase):
         out = Template('''
             {% load show_navigation from nexus_helpers %}
             {% show_navigation %}
-        ''').render(Context()).strip()
+        ''').render(Context({'nexus_site': site})).strip()
         BeautifulSoup(out)  # checks it is valid HTML
