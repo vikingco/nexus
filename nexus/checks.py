@@ -1,7 +1,5 @@
-import django
 from django.conf import settings
 from django.core.checks import Error, Tags, register
-from django.core.exceptions import ImproperlyConfigured
 
 
 def register_checks():
@@ -25,17 +23,3 @@ def check_requirements(app_configs, **kwargs):
             ))
 
     return errors
-
-
-def pre_checks_requirements():
-    # Used in models.py to raise an error for django versions that can't use the above check
-    if django.VERSION >= (1, 7):
-        return
-
-    errors = check_requirements([])
-
-    if not len(errors):
-        return
-
-    message = " ".join(error.msg + " " + error.hint for error in errors)
-    raise ImproperlyConfigured(message)

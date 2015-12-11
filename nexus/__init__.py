@@ -72,8 +72,6 @@ def autodiscover(site=None):
         # Step 3: import the app's admin file. If this has errors we want them
         # to bubble up.
         import_module("%s.nexus_modules" % app)
-    # # load builtins
-    # from gargoyle.builtins import *
 
     if site:
         globals()['site'] = orig_site

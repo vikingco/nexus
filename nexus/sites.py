@@ -12,38 +12,13 @@ from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse, HttpResponseNotModified, HttpResponseRedirect
 from django.utils.http import http_date
 from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.views.static import was_modified_since
 
 from nexus import conf
 from nexus.compat import context_processors, render, render_to_string
 
 NEXUS_ROOT = os.path.normpath(os.path.dirname(__file__))
-
-
-try:
-    from django.views.decorators.csrf import ensure_csrf_cookie
-except ImportError:  # must be < Django 1.3
-    from django.views.decorators.csrf import CsrfViewMiddleware
-    from django.middleware.csrf import get_token
-    from django.utils.decorators import decorator_from_middleware
-
-    class _EnsureCsrfCookie(CsrfViewMiddleware):
-        def _reject(self, request, reason):
-            return None
-
-        def process_view(self, request, callback, callback_args, callback_kwargs):
-            retval = super(_EnsureCsrfCookie, self).process_view(request, callback, callback_args, callback_kwargs)
-            # Forces process_response to send the cookie
-            get_token(request)
-            return retval
-
-    ensure_csrf_cookie = decorator_from_middleware(_EnsureCsrfCookie)
-    ensure_csrf_cookie.__name__ = 'ensure_csrf_cookie'
-    ensure_csrf_cookie.__doc__ = """
-    Use this decorator to ensure that a view sets a CSRF cookie, whether or not it
-    uses the csrf_token template tag, or the CsrfViewMiddleware is used.
-    """
 
 
 class NexusSite(object):
@@ -262,7 +237,6 @@ class NexusSite(object):
 
     def dashboard(self, request):
         "Basic dashboard panel"
-        # TODO: these should be ajax
         module_set = []
         for namespace, module in self.get_modules():
             home_url = module.get_home_url(request)

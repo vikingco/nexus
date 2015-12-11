@@ -5,12 +5,7 @@ import os
 
 from django.core.urlresolvers import reverse
 from django.http import HttpRequest
-
-# import thread lib from py3k or 2
-try:
-    import _thread as thread
-except ImportError:
-    import thread
+from django.utils.six.moves import _thread as thread
 
 
 class NexusModule(object):
