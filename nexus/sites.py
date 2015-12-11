@@ -207,6 +207,9 @@ class NexusSite(object):
         from django.contrib.auth import login as login_
         from django.contrib.auth.forms import AuthenticationForm
 
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('nexus:index', current_app=self.name))
+
         if form_class is None:
             form_class = AuthenticationForm
 

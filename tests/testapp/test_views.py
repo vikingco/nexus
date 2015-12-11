@@ -22,6 +22,34 @@ class ViewTests(TestCase):
         assert "Model Admin" in resp.content
         assert 'csrftoken' in resp.cookies
 
+    def test_login_not_logged_in(self):
+        self.client.logout()
+        resp = self.client.get('/nexus/login/')
+        assert resp.status_code == 200
+
+    def test_login_do_log_in(self):
+        self.client.logout()
+        resp = self.client.post('/nexus/login/', data={
+            'username': 'user',
+            'password': 'password',
+        }, follow=False)
+        assert resp.status_code == 302
+        assert resp['Location'].endswith('/nexus/')
+
+    def test_login_do_log_in_fail(self):
+        self.client.logout()
+        resp = self.client.post('/nexus/login/', data={
+            'username': 'user',
+            'password': 'notmypassword',
+        }, follow=False)
+        assert resp.status_code == 200
+        assert '<p class="error"' in resp.content
+
+    def test_login_logged_in(self):
+        resp = self.client.get('/nexus/login/', follow=False)
+        assert resp.status_code == 302
+        assert resp['Location'].endswith('/nexus/')
+
     def test_logout_not_logged_in(self):
         self.client.logout()
         resp = self.client.get('/nexus/logout/')
