@@ -1,6 +1,16 @@
 from django.conf import settings
 
-MEDIA_PREFIX = getattr(settings, 'NEXUS_MEDIA_PREFIX', '/nexus/media/')
 
-if getattr(settings, 'NEXUS_USE_DJANGO_MEDIA_URL', False):
-    MEDIA_PREFIX = getattr(settings, 'MEDIA_URL', MEDIA_PREFIX)
+class Settings(object):
+    """
+    Shadow Django's settings with a little logic
+    """
+
+    @property
+    def MEDIA_PREFIX(self):
+        prefix = getattr(settings, 'NEXUS_MEDIA_PREFIX', '/nexus/media/')
+        if getattr(settings, 'NEXUS_USE_DJANGO_MEDIA_URL', False):
+            prefix = getattr(settings, 'MEDIA_URL', prefix)
+        return prefix
+
+nexus_settings = Settings()  # noqa

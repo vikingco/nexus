@@ -15,8 +15,8 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.views.static import was_modified_since
 
-from nexus import conf
 from nexus.compat import context_processors, render, render_to_string
+from nexus.conf import nexus_settings
 
 NEXUS_ROOT = os.path.normpath(os.path.dirname(__file__))
 
@@ -114,7 +114,7 @@ class NexusSite(object):
         context.update({
             'request': request,
             'nexus_site': self,
-            'nexus_media_prefix': conf.MEDIA_PREFIX.rstrip('/'),
+            'nexus_media_prefix': nexus_settings.MEDIA_PREFIX.rstrip('/'),
         })
         return context
 

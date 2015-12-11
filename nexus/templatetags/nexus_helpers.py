@@ -3,14 +3,14 @@ from collections import OrderedDict
 from django import template
 
 import nexus
-from nexus import conf
+from nexus.conf import nexus_settings
 from nexus.modules import NexusModule
 
 register = template.Library()
 
 
 def nexus_media_prefix():
-    return conf.MEDIA_PREFIX.rstrip('/')
+    return nexus_settings.MEDIA_PREFIX.rstrip('/')
 register.simple_tag(nexus_media_prefix)
 
 
