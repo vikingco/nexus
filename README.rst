@@ -5,7 +5,7 @@ Nexus
 .. image:: https://img.shields.io/pypi/v/nexus-yplan.svg
     :target: https://pypi.python.org/pypi/nexus-yplan
 
-.. image:: https://travis-ci.org/YPlan/nexus.png?branch=master
+.. image:: https://travis-ci.org/YPlan/nexus.svg?branch=master
         :target: https://travis-ci.org/YPlan/nexus
 
 Nexus is a pluggable admin application in Django. It's designed to give you a simple design and architecture for building admin applications.
