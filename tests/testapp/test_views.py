@@ -19,7 +19,7 @@ class ViewTests(TestCase):
     def test_dashboard_logged_in(self):
         resp = self.client.get('/nexus/')
         assert resp.status_code == 200
-        assert "Dashboard" in resp.content
+        assert "Dashboard" in resp.content.decode('utf-8')
         assert 'csrftoken' in resp.cookies
 
     def test_media_logo(self):

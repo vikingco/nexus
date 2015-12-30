@@ -3,7 +3,6 @@ import mimetypes
 import os
 import posixpath
 import stat
-import urllib
 from collections import OrderedDict
 from functools import update_wrapper, wraps
 
@@ -11,7 +10,9 @@ from django.conf.urls import url
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse, HttpResponseNotModified, HttpResponseRedirect
+from django.utils import six
 from django.utils.http import http_date
+from django.utils.six.moves import urllib
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.views.static import was_modified_since
@@ -118,14 +119,14 @@ class NexusSite(object):
         return context
 
     def get_modules(self):
-        for k, v in self._registry.iteritems():
+        for k, v in six.iteritems(self._registry):
             yield k, v[0]
 
     def get_module(self, module):
         return self._registry[module][0]
 
     def get_categories(self):
-        for k, v in self._categories.iteritems():
+        for k, v in six.iteritems(self._categories):
             yield k, v
 
     def get_category_label(self, category):
@@ -169,7 +170,7 @@ class NexusSite(object):
         else:
             document_root = self.get_module(module).media_root
 
-        path = posixpath.normpath(urllib.unquote(path))
+        path = posixpath.normpath(urllib.parse.unquote(path))
         path = path.lstrip('/')
         newpath = ''
         for part in path.split('/'):
@@ -210,7 +211,7 @@ class NexusSite(object):
         return HttpResponseRedirect(
             '{login}?{get}'.format(
                 login=reverse('admin:login'),
-                get=urllib.urlencode({REDIRECT_FIELD_NAME: request.path})
+                get=urllib.parse.urlencode({REDIRECT_FIELD_NAME: request.path})
             )
         )
 
