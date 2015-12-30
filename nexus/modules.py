@@ -107,12 +107,11 @@ class NexusModule(object):
     def get_urls(self):
         return []
 
+    @property
     def urls(self):
         if self.app_name and self.name:
             return self.get_urls(), self.app_name, self.name
         return self.get_urls()
-
-    urls = property(urls)
 
     def get_trail(self, request):
         return [

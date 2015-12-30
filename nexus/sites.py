@@ -69,10 +69,9 @@ class NexusSite(object):
 
         return urlpatterns
 
+    @property
     def urls(self):
         return self.get_urls()
-
-    urls = property(urls)
 
     def has_permission(self, request, extra_permission=None):
         """
