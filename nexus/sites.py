@@ -7,7 +7,7 @@ import urllib
 from collections import OrderedDict
 from functools import update_wrapper, wraps
 
-from django.conf.urls import include, url
+from django.conf.urls import url
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse, HttpResponseNotModified, HttpResponseRedirect
@@ -16,7 +16,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.views.static import was_modified_since
 
-from nexus.compat import context_processors, render, render_to_string
+from nexus.compat import context_processors, render, render_to_string, subinclude
 from nexus.conf import nexus_settings
 
 NEXUS_ROOT = os.path.normpath(os.path.dirname(__file__))
@@ -59,11 +59,11 @@ class NexusSite(object):
         ], self.app_name, self.name
 
         urlpatterns = [
-            url(r'^', include(base_urls)),
+            url(r'^', subinclude(base_urls)),
         ]
         for namespace, module in self.get_modules():
             urlpatterns += [
-                url(r'^%s/' % namespace, include(module.urls)),
+                url(r'^%s/' % namespace, subinclude(module.urls)),
             ]
 
         return urlpatterns
