@@ -11,20 +11,21 @@ SECRET_KEY = 'NOTASECRET'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '',
+        'NAME': 'dev-database.sqlite3',
     }
 }
 
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
+    'testapp',
+    'nexus',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'nexus',
-    'testapp'
+    'django.contrib.staticfiles',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -58,3 +59,5 @@ TEMPLATES = [
         },
     },
 ]
+
+STATIC_URL = '/static/'

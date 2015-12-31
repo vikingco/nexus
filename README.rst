@@ -16,7 +16,7 @@ It was originally created by `Disqus <https://github.com/disqus/nexus>`_, but du
 Screenshot
 ----------
 
-.. image:: http://dl.dropbox.com/u/116385/nexus.png
+.. image:: https://raw.github.com/YPlan/nexus/master/screenshot.png
 
 Requirements
 ------------
@@ -89,7 +89,7 @@ Media
 
 By default Nexus serves its media files itself through Python, avoiding any configuration to integrate with your
 project. This is convenient but can be slow. You can control where the media files are served from with the setting
-``NEXUS_MEDIA_PREFIX``, for example::
+``NEXUS_MEDIA_PREFIX``, for example:
 
 .. code-block:: python
 

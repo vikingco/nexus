@@ -1,3 +1,6 @@
+import multiprocessing
+import platform
+
 from django.conf.urls import url
 
 import nexus
@@ -29,3 +32,24 @@ nexus.site.register(HelloWorldModule, 'hello-world')
 
 # optionally you may specify a category
 # nexus.site.register(HelloWorldModule, 'hello-world', category='cache')
+
+
+class SystemStatsModule(nexus.NexusModule):
+    """
+    Modules don't need to have URLs, they can just appear on the dashboard -
+    simply don't name `home_url` or implement `get_urls()`.
+    """
+    name = 'system-stats'
+
+    def get_title(self):
+        return 'System Stats'
+
+    def render_on_dashboard(self, request):
+        return self.render_to_string('nexus/system-stats/dashboard.html', {
+            'stats': {
+                'num_cpus': multiprocessing.cpu_count(),
+                'platform': platform,
+            }
+        })
+
+nexus.site.register(SystemStatsModule, 'system-stats')

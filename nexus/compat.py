@@ -26,8 +26,9 @@ else:
     def render_to_string(*args, **kwargs):
         if 'context' in kwargs:
             kwargs['dictionary'] = kwargs.pop('context')
-        if 'request' in kwargs:
-            kwargs['context_instance'] = RequestContext(kwargs.pop('request'))
+        request = kwargs.pop('request', None)
+        if request is not None:
+            kwargs['context_instance'] = RequestContext()
         return orig_render_to_string(*args, **kwargs)
 
 # Django 1.9
