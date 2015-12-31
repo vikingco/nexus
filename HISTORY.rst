@@ -18,6 +18,9 @@ Pending Release
 * Removed the login/logout pages, which were copied and adapted from an old version of Django Admin, and likely no
   longer secure. If you are not logged in Nexus will now redirect you to Django Admin - thus Django Admin is now
   required by Nexus.
+* Fixed Nexus CSRF protection to work if you have changed the CSRF cookie name,
+  thanks to a PR on the original Nexus from Github users @karech and
+  @graingert.
 
 1.0.0 (2015-12-09)
 ------------------

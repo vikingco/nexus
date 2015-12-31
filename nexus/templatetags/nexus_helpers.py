@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
 from django import template
+from django.conf import settings
 from django.utils import six
 
 import nexus
@@ -18,6 +19,11 @@ register.simple_tag(nexus_media_prefix)
 def nexus_version():
     return nexus.__version__
 register.simple_tag(nexus_version)
+
+
+def nexus_csrf_cookie_name():
+    return settings.CSRF_COOKIE_NAME
+register.simple_tag(nexus_csrf_cookie_name)
 
 
 def show_navigation(context):
