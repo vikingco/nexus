@@ -85,15 +85,15 @@
     settings: {
       opacity      : 0.2,
       overlay      : true,
-      loadingImage : GARGOYLE.facebox.loadingImage,
-      closeImage   : GARGOYLE.facebox.closeImage,
+      loadingImage : NEXUS.facebox.loadingImage,
+      closeImage   : NEXUS.facebox.closeImage,
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none;"> \
       <div class="popup"> \
         <div class="content"> \
         </div> \
-        <a href="#" class="close"><img src="' + GARGOYLE.facebox.closeImage + '" title="close" class="close_image" /></a> \
+        <a href="#" class="close"><img src="' + NEXUS.facebox.closeImage + '" title="close" class="close_image" /></a> \
       </div> \
     </div>'
     },
