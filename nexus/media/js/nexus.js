@@ -34,7 +34,7 @@ jQuery.ajaxSetup({
         }
 
         if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-            var cookieName = $('#nexus-constants').data('csrfCookieName');
+            var cookieName = $('#nexus-constants').attr('data-csrf-cookie-name');
             xhr.setRequestHeader("X-CSRFToken", getCookie(cookieName));
         }
     }
