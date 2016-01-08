@@ -21,6 +21,7 @@ Pending Release
 * Fixed Nexus CSRF protection to work if you have changed the CSRF cookie name,
   thanks to a PR on the original Nexus from Github users @karech and
   @graingert.
+* Removed all inline javascript, thanks @graingert.
 
 1.0.0 (2015-12-09)
 ------------------
