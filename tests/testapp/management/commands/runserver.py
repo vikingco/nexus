@@ -9,7 +9,6 @@ from django.core.management import call_command
 
 class Command(BaseCommand):
     def check_migrations(self):
-        print('aas')
         call_command('migrate', interactive=True)
         if not User.objects.exists():
             self.stdout.write(
