@@ -26,19 +26,16 @@ Tested with all combinations of:
 * Python: 2.7, 3.4, 3.5
 * Django: 1.7 (up to Python 3.4 only), 1.8, 1.9
 
-Install
--------
+Installation
+------------
 
-Install it with pip (or easy_install):
+Install it with ``pip`` (or ``easy_install``):
 
 .. code-block:: bash
 
 	pip install nexus-yplan
 
 Make sure you ``pip uninstall nexus`` first if you're upgrading from the original to this fork - the packages clash.
-
-Config
-------
 
 You'll need to enable it much like you would ``django.contrib.admin``.
 
@@ -51,7 +48,12 @@ First, add it to your ``INSTALLED_APPS`` setting:
         'nexus',
     )
 
-Now you'll want to include it within your ``urls.py``:
+``nexus`` has three dependencies from core Django - ``django.contrib.admin``, ``django.contrib.auth``, and
+``django.contrib.sessions``. If these applications are not in your ``INSTALLED_APPS``, add them; or if you are using a
+custom auth system you can skip these requirements by adding the line ``NEXUS_SKIP_INSTALLED_APPS_REQUIREMENTS = True``
+to your settings.
+
+Second, include nexus at some url in your ``urls.py``:
 
 .. code-block:: python
 
@@ -65,17 +67,31 @@ Now you'll want to include it within your ``urls.py``:
 	    ('^nexus/', include(nexus.site.urls)),
 	)
 
-By default Nexus requires ``django.contrib.auth`` and ``django.contrib.sessions``. If you are using a custom auth
-system you can skip these requirements by using the setting ``NEXUS_SKIP_INSTALLED_APPS_REQUIREMENTS = True`` in your
-django settings.
+Nexus has autodiscovery similar to Django Admin - it will look in each of your ``INSTALLED_APPS`` for a
+``nexus_modules`` submodule, and import that. This is where the app should declare a ``NexusModule`` subclass and use
+``nexus.site.register`` to add it to the main Nexus site. Thus to add functionality you should install some packages
+with modules, or write your own.
 
-Settings
---------
 
-Nexus' behaviour can be customized by adding some values to your Django settings.
+Available Modules
+-----------------
 
-Login
-~~~~~
+The following modules are tested against ``nexus-yplan``:
+
+* `Gargoyle (YPlan fork) <https://github.com/YPlan/gargoyle>`_
+
+There are also some older applications that provide Nexus modules, however these were only developed against Disqus'
+Nexus and not this fork; your mileage may vary:
+
+* `nexus-memcache <https://github.com/dcramer/nexus-memcache>`_
+* `nexus-redis <https://github.com/dcramer/nexus-redis>`_
+
+If you want to write a module, there are a couple of example modules in ``tests/testapp/nexus_modules.py``, with
+templates in ``tests/testapp/templates/nexus/example``. Also the source code shouldn't be too hard to understand.
+
+
+A Note on Login
+---------------
 
 Until Version 1.1, Nexus included a login/logout functionality. Unfortunately these were copied and adapted from an old
 version of the code in Django Admin, and were thus not up to date with security changes in newer Django versions. Since
@@ -83,6 +99,12 @@ keeping them up to date would be a burden, and most sites use Django Admin for a
 functions have been removed.
 
 Nexus now relies on Django Admin login, or for users to visit it having logged in through another route.
+
+
+Settings
+--------
+
+Nexus' behaviour can be customized by adding some values to your Django settings.
 
 Media
 ~~~~~
@@ -95,18 +117,4 @@ project. This is convenient but can be slow. You can control where the media fil
 
     NEXUS_MEDIA_PREFIX = '/served/here/'
 
-Modules
--------
-
-Applications which provide Nexus modules:
-
-* `Gargoyle (YPlan fork) <https://github.com/YPlan/gargoyle>`_
-* `Memcache <https://github.com/dcramer/nexus-memcache>`_
-* `Redis <https://github.com/dcramer/nexus-redis>`_
-* `django-debug-logging <https://github.com/lincolnloop/django-debug-logging>`_
-* `Django-Experiments <https://github.com/mixcloud/django-experiments>`_
-
-N.B. Those that have not been forked by YPlan probably aren't up to date to work with newer Django versions.
-
-If you want to write a module, see ``HelloWorldModule`` in ``tests/testapp/nexus_modules.py``, plus its templates, for
-a simple hello world implementation. Also the source code shouldn't be too hard to understand.
+This will make Nexus write its media URLs using this prefix, where it assumes you have set up serving its files.
