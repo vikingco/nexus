@@ -7,6 +7,11 @@ History
 Pending Release
 ---------------
 
+* New release notes here
+
+1.1.0 (2016-01-13)
+------------------
+
 * Removed support for old Django versions
 * Fixed all deprecation warnings on Django 1.7 and 1.8
 * Added Django 1.9 support
