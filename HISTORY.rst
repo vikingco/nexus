@@ -33,3 +33,24 @@ Pending Release
 
 * First publication on PyPI as ``nexus-yplan``
 * Django 1.8 compatibility
+
+0.3.1 (2015-01-22)
+------------------
+
+* Better support for Django 1.7 and Python 3
+
+0.2.3 (2011-12-19)
+------------------
+
+* Ensure on exempt views we still send .
+* Downgrade CSRF ajax to work with older versions of jQuery.
+
+0.2.2 (2011-12-19)
+------------------
+
+* Update AJAX CSRF set to work against correct origins.
+
+0.2.1 (2011-12-19)
+------------------
+
+* Added version to Nexus footer.
