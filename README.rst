@@ -33,7 +33,7 @@ Install it with ``pip`` (or ``easy_install``):
 
 .. code-block:: bash
 
-	pip install nexus-yplan
+    pip install nexus-yplan
 
 Make sure you ``pip uninstall nexus`` first if you're upgrading from the original to this fork - the packages clash.
 
@@ -57,15 +57,12 @@ Second, include nexus at some url in your ``urls.py``:
 
 .. code-block:: python
 
-	import nexus
+    import nexus
 
-	# sets up the default nexus site by detecting all nexus_modules.py files
-	nexus.autodiscover()
-
-	# urls.py
-	urlpatterns = patterns('',
-	    ('^nexus/', include(nexus.site.urls)),
-	)
+    # urls.py
+    urlpatterns = patterns('',
+        ('^nexus/', include(nexus.site.urls)),
+    )
 
 Nexus has autodiscovery similar to Django Admin - it will look in each of your ``INSTALLED_APPS`` for a
 ``nexus_modules`` submodule, and import that. This is where the app should declare a ``NexusModule`` subclass and use

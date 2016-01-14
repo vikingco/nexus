@@ -9,6 +9,8 @@ Pending Release
 
 * New release notes here
 * Removed support for Django 1.7
+* Removed the need to add a call to ``nexus.autodiscover()`` in your URLConf by using the ``AppConfig``, similar to
+  Django Admin from Django 1.7+
 
 1.1.0 (2016-01-13)
 ------------------

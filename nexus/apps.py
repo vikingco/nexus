@@ -8,3 +8,5 @@ class NexusAppConfig(AppConfig):
     def ready(self):
         from nexus.checks import register_checks
         register_checks()
+
+        self.module.autodiscover()
