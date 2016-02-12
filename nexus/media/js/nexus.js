@@ -39,3 +39,16 @@ jQuery.ajaxSetup({
         }
     }
 });
+
+/* Facebox setup as per instructions at https://github.com/defunkt/facebox */
+
+(function () {
+
+    var nexusMediaPrefix = $('#nexus-constants').attr('data-nexus-media-prefix'),
+        loadingImage = nexusMediaPrefix + '/nexus/img/facebox/loading.gif',
+        closeImage = nexusMediaPrefix + '/nexus/img/facebox/closelabel.png';
+
+    $.facebox.settings.closeImage = closeImage;
+    $.facebox.settings.loadingImage = loadingImage;
+
+})();
