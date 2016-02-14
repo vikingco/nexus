@@ -34,7 +34,7 @@ jQuery.ajaxSetup({
         }
 
         if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-            var cookieName = $('#nexus-constants').attr('data-csrf-cookie-name');
+            var cookieName = $('#nexus-constants').data('csrfCookieName');
             xhr.setRequestHeader("X-CSRFToken", getCookie(cookieName));
         }
     }
@@ -44,7 +44,7 @@ jQuery.ajaxSetup({
 
 (function () {
 
-    var nexusMediaPrefix = $('#nexus-constants').attr('data-nexus-media-prefix'),
+    var nexusMediaPrefix = $('#nexus-constants').data('nexusMediaPrefix'),
         loadingImage = nexusMediaPrefix + '/nexus/img/facebox/loading.gif',
         closeImage = nexusMediaPrefix + '/nexus/img/facebox/closelabel.png';
 
