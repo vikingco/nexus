@@ -8,6 +8,7 @@ Pending Release
 ---------------
 
 * New release notes here
+* New Logo and theme, thanks @emache.
 
 1.2.0 (2016-02-12)
 ------------------
