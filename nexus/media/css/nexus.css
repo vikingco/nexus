@@ -84,7 +84,7 @@ fieldset h2 {
 }
 
 #header h1, #header h2 {
-    font-family: 'Yanone Kaffeesatz', arial, serif;
+    font-family: 'Raleway', arial, sans-serif;
     color: #084e80;
     display: inline;
     font-size: 20pt;
@@ -93,10 +93,9 @@ fieldset h2 {
 
 #header h1 {
     margin: -5px 0 -10px;
-    padding: 5px 0 10px;
+    padding: 5px 0 5px 60px;
     background-repeat: no-repeat;
     background-position: top middle;
-    padding-left: 60px;
 }
 
 #header h1 img {
@@ -110,7 +109,6 @@ fieldset h2 {
 }
 
 #header h2 {
-    margin-left: 5px;
     color: #ccc;
 }
 
