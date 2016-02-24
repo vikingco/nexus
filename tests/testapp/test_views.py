@@ -22,6 +22,12 @@ class ViewTests(TestCase):
         assert "Dashboard" in resp.content.decode('utf-8')
         assert 'csrftoken' in resp.cookies
 
+    def test_dashboard_not_staff(self):
+        self.user.is_staff = False
+        self.user.save()
+        resp = self.client.get('/nexus/')
+        assert resp.status_code == 403
+
     def test_media_logo(self):
         resp = self.client.get('/nexus/media/nexus/img/nexus_logo.png')
         assert resp.status_code == 200

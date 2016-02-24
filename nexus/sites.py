@@ -8,6 +8,7 @@ from functools import update_wrapper, wraps
 
 from django.conf.urls import url
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse, HttpResponseNotModified, HttpResponseRedirect
 from django.utils import six
@@ -91,9 +92,10 @@ class NexusSite(object):
         """
         @wraps(view)
         def inner(request, *args, **kwargs):
-            if not self.has_permission(request, extra_permission):
-                # Redirect to login
+            if not request.user.is_authenticated():
                 return self.login(request)
+            elif not self.has_permission(request, extra_permission):
+                raise PermissionDenied()
             return view(request, *args, **kwargs)
 
         # Mark it as never_cache
