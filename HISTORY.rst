@@ -8,6 +8,10 @@ Pending Release
 ---------------
 
 * New release notes here
+
+1.3.0 (2016-02-24)
+------------------
+
 * New Logo and theme, thanks @emache.
 * The login logic no longer sends users without permission to see Nexus through a redirect loop, thanks @ChunYin for
   the report.
