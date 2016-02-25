@@ -8,6 +8,7 @@ Pending Release
 ---------------
 
 * New release notes here
+* Fixed footer appearance on long pages
 
 1.3.1 (2016-02-25)
 ------------------

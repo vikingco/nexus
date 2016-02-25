@@ -182,7 +182,9 @@ fieldset h2 {
     background: #f3f3f3;
 }
 
-#container { padding: 0 10px; }
+#container {
+    padding: 0 10px 50px 10px;
+}
 #container .wrapper {
     margin: 0 auto 20px;
     padding: 20px;
@@ -209,7 +211,7 @@ fieldset h2 {
     background-color: #ffffff;
     border-top: 1px solid #d5d9db;
     padding: 20px 0;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
 }
