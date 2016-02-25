@@ -48,7 +48,7 @@ def show_navigation(context):
         if not home_url:
             continue
 
-        active = request.path.startswith(home_url)
+        # active = request.path.startswith(home_url)
 
         if category not in category_link_set:
             if category:
@@ -60,9 +60,10 @@ def show_navigation(context):
                 'links': []
             }
 
-        category_link_set[category]['links'].append((module.get_title(), home_url, active))
+        # category_link_set[category]['links'].append((module.get_title(), home_url, active))  # active is broken
+        category_link_set[category]['links'].append((module.get_title(), home_url, False))
 
-        category_link_set[category]['active'] = active
+        category_link_set[category]['active'] = False  # Broken: active
 
     return {
         'nexus_site': site,

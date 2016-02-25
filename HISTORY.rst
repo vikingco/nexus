@@ -8,6 +8,7 @@ Pending Release
 ---------------
 
 * New release notes here
+* Theme updated a bit more to make buttons look nice
 
 1.3.0 (2016-02-24)
 ------------------

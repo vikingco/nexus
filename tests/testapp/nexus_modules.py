@@ -53,3 +53,27 @@ class SystemStatsModule(nexus.NexusModule):
         })
 
 nexus.site.register(SystemStatsModule, 'system-stats')
+
+
+class StyleGuideModule(nexus.NexusModule):
+    """
+    Modules can also not appear on the dashboard, but not implementing
+    render_on_dashboard, and only have URLs.
+    """
+    home_url = 'index'
+    name = 'style-guide'
+
+    def get_title(self):
+        return 'Style Guide'
+
+    def get_urls(self):
+        return [
+            url(r'^$', self.as_view(self.index), name='index'),
+        ]
+
+    def index(self, request):
+        return self.render_to_response('nexus/styleguide/index.html', {
+            'title': 'Style Guide'
+        }, request)
+
+nexus.site.register(StyleGuideModule, 'style-guide')

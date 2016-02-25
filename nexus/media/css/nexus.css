@@ -142,7 +142,7 @@ fieldset h2 {
     padding: 10px 20px;
     text-decoration: none;
     border: 1px solid #d5d9db;
-    background-color: #ffffff;
+    background-color: #eeeeee;
     border-bottom: none
 }
 
@@ -274,12 +274,7 @@ fieldset h2 {
     border-radius: 4px;
     color: #5a7c9d;
     font-weight: bold;
-    -webkit-box-shadow: 0 1px 3px rgba(0,0,0, .1);
-    -moz-box-shadow: 0 1px 3px rgba(0,0,0, .2);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF', endColorstr='#DCDCDC'); /* for IE */
-    background: -webkit-gradient(linear, left top, left bottom, from(#FFF), to(#DCDCDC)); /* for webkit browsers */
-    background:-moz-linear-gradient(center top , #FFFFFF 0pt, #DCDCDC 100%) repeat scroll 0 0 transparent;
-    text-shadow: 0 1px 0 #fff;
+    background: #FFFFFF;
     padding: 8px;
     font-family: Arial, Helvetica, Calibri, sans-serif;
     position: relative;
@@ -302,13 +297,12 @@ fieldset h2 {
 .button:hover {
     border-color: #7b9cad;
     color: #436586;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#ccc'); /* for IE */
-    background: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#ccc)); /* for webkit browsers */
-    background:-moz-linear-gradient(center top , #f9f9f9 0pt, #ccc 100%) repeat scroll 0 0 transparent;
+    background: #f0f0f0;
 }
 
 .button.delete:hover,
-.button.delete:focus {
+.button.delete:focus,
+.button.delete.hover {
     border-color: red;
     filter: none;
     background: #E25F53;
@@ -341,14 +335,9 @@ fieldset h2 {
 .button.toggled,
 .button.toggled:hover,
 .button.toggled:focus {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#437ba3', endColorstr='#234b6f'); /* for IE */
-    background: -webkit-gradient(linear, left top, left bottom, from(#437ba3), to(#234b6f)); /* for webkit browsers */
-    background: -moz-linear-gradient(top,  #555,  #437ba3); /* for firefox 3.6+ */
+    background: #437ba3;
     color: #fff;
     border-color: #537789;
-    text-shadow: 0 1px 0 #000;
-    -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, .2);
-    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
 }
 
 #container.login-area .wrapper {
@@ -402,9 +391,18 @@ fieldset h2 {
 #breadcrumbs a,
 #breadcrumbs span {
     font-weight: normal;
-    background: url('../img/breadcrumb.png') right center no-repeat;
-    padding: 0 12px 0 0;
-    margin: 0 8px 0 0;
+    text-decoration: none;
+}
+#breadcrumbs li:after {
+    content: " > ";
+    margin-right: 4px;
+}
+#breadcrumbs li:last-child:after {
+    content: "";
+}
+#breadcrumbs a:hover,
+#breadcrumbs a:focus {
+    text-decoration: underline;
 }
 #breadcrumbs li:last-child {
     background: none;
@@ -417,6 +415,10 @@ fieldset h2 {
     font-weight: inherit;
     padding-right: 0;
     margin-right: 0;
+}
+#breadcrumbs li:last-child a:hover,
+#breadcrumbs li:last-child a:focus {
+    text-decoration: underline;
 }
 
 /* dashboard styles */
