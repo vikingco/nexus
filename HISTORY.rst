@@ -8,6 +8,10 @@ Pending Release
 ---------------
 
 * New release notes here
+
+1.3.1 (2016-02-25)
+------------------
+
 * Theme updated a bit more to make buttons look nice
 
 1.3.0 (2016-02-24)
