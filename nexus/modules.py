@@ -66,7 +66,7 @@ class NexusModule(object):
         except IndexError:
             # in some cases this may return an index error
             # (pyc files dont match py files for example)
-            return
+            return  # pragma: no cover
         for frame, _, _, _, _, _ in stack:
             if 'request' in frame.f_locals:
                 if isinstance(frame.f_locals['request'], HttpRequest):

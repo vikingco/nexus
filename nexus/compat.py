@@ -4,15 +4,15 @@ import django
 
 # context_processors moved
 try:
-    from django.template import context_processors  # noqa
+    from django.template import context_processors  # noqa pragma: no cover
 except ImportError:
-    from django.core import context_processors  # noqa
+    from django.core import context_processors  # noqa pragma: no cover
 
 
 # 'dictionary' -> 'context'
 if django.VERSION[:2] >= (1, 8):
-    from django.shortcuts import render
-    from django.template.loader import render_to_string
+    from django.shortcuts import render  # pragma: no cover
+    from django.template.loader import render_to_string  # pragma: no cover
 else:
     from django.shortcuts import render as orig_render
     from django.template import RequestContext
