@@ -1,12 +1,14 @@
 from bs4 import BeautifulSoup
-from django.template import Context, Template
-from django.test import SimpleTestCase
+from django.template import Context, RequestContext, Template
+from django.test import RequestFactory, SimpleTestCase
 
 import nexus
 from nexus.sites import site
 
 
 class NexusHelpersTests(SimpleTestCase):
+
+    request_factory = RequestFactory()
 
     def test_nexus_media_prefix(self):
         out = Template('''
@@ -23,8 +25,9 @@ class NexusHelpersTests(SimpleTestCase):
         assert out == nexus.__version__
 
     def test_show_navigation(self):
+        request = self.request_factory.get('/')
         out = Template('''
             {% load show_navigation from nexus_helpers %}
             {% show_navigation %}
-        ''').render(Context({'nexus_site': site})).strip()
+        ''').render(RequestContext(request, {'nexus_site': site})).strip()
         BeautifulSoup(out)  # checks it is valid HTML

@@ -28,7 +28,7 @@ register.simple_tag(nexus_csrf_cookie_name)
 
 def show_navigation(context):
     site = context.get('nexus_site', NexusModule.get_global('site'))
-    request = NexusModule.get_request()
+    request = context['request']
 
     category_link_set = OrderedDict([(k, {
         'label': v,
@@ -41,14 +41,12 @@ def show_navigation(context):
         if module.permission and not request.user.has_perm(module.permission):
             continue
 
-        home_url = None
-        if 'request' in context:
-            home_url = module.get_home_url(context['request'])
+        home_url = module.get_home_url(context['request'])
 
         if not home_url:
             continue
 
-        # active = request.path.startswith(home_url)
+        active = request.path.startswith(home_url)
 
         if category not in category_link_set:
             if category:
@@ -60,10 +58,8 @@ def show_navigation(context):
                 'links': []
             }
 
-        # category_link_set[category]['links'].append((module.get_title(), home_url, active))  # active is broken
-        category_link_set[category]['links'].append((module.get_title(), home_url, False))
-
-        category_link_set[category]['active'] = False  # Broken: active
+        category_link_set[category]['links'].append((module.get_title(), home_url, active))
+        category_link_set[category]['active'] = active
 
     return {
         'nexus_site': site,

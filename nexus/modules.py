@@ -1,10 +1,8 @@
 import hashlib
-import inspect
 import logging
 import os
 
 from django.core.urlresolvers import reverse
-from django.http import HttpRequest
 from django.utils.six.moves import _thread as thread
 
 
@@ -51,28 +49,6 @@ class NexusModule(object):
     @classmethod
     def get_global(cls, key):
         return cls._globals.get(thread.get_ident(), {}).get(key)
-
-    @classmethod
-    def get_request(cls):
-        """
-        Get the HTTPRequest object from thread storage or from a callee by searching
-        each frame in the call stack.
-        """
-        request = cls.get_global('request')
-        if request:
-            return request
-        try:
-            stack = inspect.stack()
-        except IndexError:
-            # in some cases this may return an index error
-            # (pyc files dont match py files for example)
-            return  # pragma: no cover
-        for frame, _, _, _, _, _ in stack:
-            if 'request' in frame.f_locals:
-                if isinstance(frame.f_locals['request'], HttpRequest):
-                    request = frame.f_locals['request']
-                    cls.set_global('request', request)
-                    return request
 
     def render_to_string(self, template, context={}, request=None):
         context.update(self.get_context(request))

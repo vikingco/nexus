@@ -9,6 +9,7 @@ Pending Release
 
 * New release notes here
 * Fixed footer appearance on long pages
+* Fixed the tab highlighting and removed ``NexusModule.get_request`` which existed only to support the old broken code.
 
 1.3.1 (2016-02-25)
 ------------------
