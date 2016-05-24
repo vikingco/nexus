@@ -8,6 +8,10 @@ Pending Release
 ---------------
 
 * New release notes here
+
+1.4.0 (2016-05-24)
+------------------
+
 * Fixed footer appearance on long pages
 * Fixed the tab highlighting and removed ``NexusModule.get_request`` which existed only to support the old broken code.
 * 'jQuery Templates' is no longer included in Nexus - this was done for Gargoyle, which now uses its own bundled
