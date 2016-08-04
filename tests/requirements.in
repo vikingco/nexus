@@ -1,0 +1,9 @@
+beautifulsoup4
+docutils
+flake8
+isort
+multilint
+Pygments
+pytest-cov
+pytest-django
+pytest
