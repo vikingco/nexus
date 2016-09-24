@@ -4,8 +4,8 @@ Nexus
 """
 from django.utils.module_loading import autodiscover_modules
 
-from nexus.sites import NexusSite, site
 from nexus.modules import NexusModule
+from nexus.sites import NexusSite, site
 
 __version__ = '1.4.0'
 VERSION = __version__
