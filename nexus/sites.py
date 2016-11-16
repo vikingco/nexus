@@ -232,6 +232,6 @@ class NexusSite(object):
             'module_set': module_set,
         }, request)
 
-# setup the default site
 
+# setup the default site
 site = NexusSite()

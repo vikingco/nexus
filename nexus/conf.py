@@ -12,4 +12,5 @@ class Settings(object):
             prefix = getattr(settings, 'MEDIA_URL', prefix)
         return prefix
 
+
 nexus_settings = Settings()

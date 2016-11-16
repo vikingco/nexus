@@ -11,21 +11,22 @@ from nexus.modules import NexusModule
 register = template.Library()
 
 
+@register.simple_tag
 def nexus_media_prefix():
     return nexus_settings.MEDIA_PREFIX.rstrip('/')
-register.simple_tag(nexus_media_prefix)
 
 
+@register.simple_tag
 def nexus_version():
     return nexus.__version__
-register.simple_tag(nexus_version)
 
 
+@register.simple_tag
 def nexus_csrf_cookie_name():
     return settings.CSRF_COOKIE_NAME
-register.simple_tag(nexus_csrf_cookie_name)
 
 
+@register.inclusion_tag('nexus/navigation.html', takes_context=True)
 def show_navigation(context):
     site = context.get('nexus_site', NexusModule.get_global('site'))
     request = context['request']
@@ -65,4 +66,3 @@ def show_navigation(context):
         'nexus_site': site,
         'category_link_set': six.itervalues(category_link_set),
     }
-register.inclusion_tag('nexus/navigation.html', takes_context=True)(show_navigation)

@@ -28,6 +28,7 @@ class HelloWorldModule(nexus.NexusModule):
             'title': 'Hello World',
         }, request)
 
+
 nexus.site.register(HelloWorldModule, 'hello-world')
 
 # optionally you may specify a category
@@ -52,6 +53,7 @@ class SystemStatsModule(nexus.NexusModule):
             }
         })
 
+
 nexus.site.register(SystemStatsModule, 'system-stats')
 
 
@@ -75,5 +77,6 @@ class StyleGuideModule(nexus.NexusModule):
         return self.render_to_response('nexus/styleguide/index.html', {
             'title': 'Style Guide'
         }, request)
+
 
 nexus.site.register(StyleGuideModule, 'style-guide')
