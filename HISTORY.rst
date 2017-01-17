@@ -7,7 +7,8 @@ History
 Pending Release
 ---------------
 
-* New release notes here
+* Inject CSRF token into template to make it work with CSRF_COOKIE_HTTPONLY setting
+* Removal of obsolete template tag 'nexus_csrf_cookie_name'
 
 1.4.0 (2016-05-24)
 ------------------

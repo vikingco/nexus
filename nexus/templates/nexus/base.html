@@ -19,7 +19,7 @@
         <script src="{% nexus_media_prefix %}/nexus/js/lib/facebox/facebox.js"></script>
         <script src="{% nexus_media_prefix %}/nexus/js/nexus.js"
                 id="nexus-constants"
-                data-csrf-cookie-name="{% nexus_csrf_cookie_name %}"
+                data-csrf-token="{{ csrf_token }}"
                 data-nexus-media-prefix="{% nexus_media_prefix %}"
             ></script>
 
